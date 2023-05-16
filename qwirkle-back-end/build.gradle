@@ -33,7 +33,9 @@ tasks.named('test') {
 }
 
 jar {
-	manifest {
-		attributes 'Main-Class': 'ca.mta.COMP4721.Comp4721GroupProjectQwirkleApplication'
-	}
+	enabled = false
+}
+
+bootJar {
+	enabled = true
 }

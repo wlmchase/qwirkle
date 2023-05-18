@@ -35,7 +35,7 @@ class FrontendGameStateController extends Component{
             body
         };
         console.log("request body: " + JSON.stringify(body));
-        fetch(`http://localhost:8080${endpoint}`, requestOptions)
+        fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com${endpoint}`, requestOptions)
             .then(res => {
                 if (res.status === 400){
                     res.json().then(parsed => {console.log(parsed)})
@@ -63,7 +63,7 @@ class FrontendGameStateController extends Component{
                 },
                 body: JSON.stringify(body)
             };
-            fetch(`http://localhost:8080/joinRandom`, requestOptions)
+            fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/joinRandom`, requestOptions)
             .then(res => {
                 return res.text();
             }).then(parsed => {
@@ -94,7 +94,7 @@ class FrontendGameStateController extends Component{
                 },
                 body: JSON.stringify(body)
             };
-            fetch(`http://localhost:8080/joinByCode?gameCode=${code}`, requestOptions)
+            fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/joinByCode?gameCode=${code}`, requestOptions)
             .then(res => {
                 console.log(res.body);
             })
@@ -125,7 +125,7 @@ class FrontendGameStateController extends Component{
                 body: JSON.stringify(body)
             };
             
-            fetch(`http://localhost:8080/createLobby`, requestOptions)
+            fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/createLobby`, requestOptions)
             .then(res => {
                 return res.text();
             }).then(parsed => {

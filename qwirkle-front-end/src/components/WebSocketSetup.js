@@ -6,7 +6,12 @@ import WaitRoomView from '../views/WaitRoomView';
 import WaitView from '../views/WaitView';
 import DisconnectPrompt from '../views/DisconnectPrompt';
 
-const SOCKET_URL = 'ws://localhost:8080/ws-message';
+const LOCAL_WS = 'ws://localhost:8080/ws-message'
+const AWS_WS = 'ws://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/ws-message';
+const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
+const LH_URL = 'http://localhost:8080';
+const ACTIVE_URL = AWS_URL;
+const ACTIVE_WS = AWS_WS;
 
 class WebSocketController extends Component{
 
@@ -30,7 +35,7 @@ class WebSocketController extends Component{
             body
         };
         console.log("request body: " + JSON.stringify(body));
-        fetch(`http://localhost:8080${endpoint}`, requestOptions)
+        fetch(`${ACTIVE_URL}${endpoint}`, requestOptions)
             .then(res => {
                 if (res.status === 400){
                     res.json().then(parsed => {console.log(parsed)})
@@ -85,7 +90,7 @@ class WebSocketController extends Component{
                 body: JSON.stringify(body)
             };
             console.log("request body: " + JSON.stringify(body));
-            fetch("http://localhost:8080/discardTiles?gameCode=" + this.props.gameCode, requestOptions)
+            fetch(`${ACTIVE_URL}/discardTiles?gameCode=` + this.props.gameCode, requestOptions)
                 .then(res => {
                     if (res.status === 400){
                         res.json().then(parsed => {console.log(parsed)})
@@ -261,7 +266,7 @@ class WebSocketController extends Component{
         }
 
         const client = new Client({
-            brokerURL: SOCKET_URL,
+            brokerURL: ACTIVE_WS,
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,

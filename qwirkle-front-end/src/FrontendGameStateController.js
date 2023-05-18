@@ -10,6 +10,9 @@ import WaitRoomView from './views/WaitRoomView';
 import WebSocketController from './components/WebSocketSetup';
 
 // want to be able to undo tile placements 
+const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
+const LH_URL = 'http://localhost:8080';
+const ACTIVE_URL = AWS_URL;
 
 class FrontendGameStateController extends Component{
     state = {
@@ -35,7 +38,7 @@ class FrontendGameStateController extends Component{
             body
         };
         console.log("request body: " + JSON.stringify(body));
-        fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com${endpoint}`, requestOptions)
+        fetch(`${ACTIVE_URL}${endpoint}`, requestOptions)
             .then(res => {
                 if (res.status === 400){
                     res.json().then(parsed => {console.log(parsed)})
@@ -63,7 +66,7 @@ class FrontendGameStateController extends Component{
                 },
                 body: JSON.stringify(body)
             };
-            fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/joinRandom`, requestOptions)
+            fetch(`${ACTIVE_URL}/joinRandom`, requestOptions)
             .then(res => {
                 return res.text();
             }).then(parsed => {
@@ -94,7 +97,7 @@ class FrontendGameStateController extends Component{
                 },
                 body: JSON.stringify(body)
             };
-            fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/joinByCode?gameCode=${code}`, requestOptions)
+            fetch(`${ACTIVE_URL}/joinByCode?gameCode=${code}`, requestOptions)
             .then(res => {
                 console.log(res.body);
             })
@@ -125,7 +128,7 @@ class FrontendGameStateController extends Component{
                 body: JSON.stringify(body)
             };
             
-            fetch(`http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/createLobby`, requestOptions)
+            fetch(`${ACTIVE_URL}/createLobby`, requestOptions)
             .then(res => {
                 return res.text();
             }).then(parsed => {

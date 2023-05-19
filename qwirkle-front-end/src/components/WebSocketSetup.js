@@ -10,8 +10,8 @@ const LOCAL_WS = 'ws://localhost:8080/ws-message'
 const AWS_WS = 'ws://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/ws-message';
 const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
 const LH_URL = 'http://localhost:8080';
-const ACTIVE_URL = AWS_URL;
-const ACTIVE_WS = AWS_WS;
+const ACTIVE_URL = LH_URL;
+const ACTIVE_WS = LOCAL_WS;
 
 class WebSocketController extends Component{
 
@@ -22,7 +22,8 @@ class WebSocketController extends Component{
         tilesPlaced: false,
         myPlayerNum: 1,
         currScreen: "start",
-        squaresWithTiles: []
+        squaresWithTiles: [],
+        disconnected: false
     };
 
 
@@ -135,7 +136,8 @@ class WebSocketController extends Component{
                 board: resBody.board,
                 discarding: false,
                 discardPile: [],
-                gameStarted: resBody.gameStarted
+                gameStarted: resBody.gameStarted,
+                disconnected: resBody.disconnected
             }
         }, () => {
             console.log("myPlayer: " + JSON.stringify(this.state.myPlayer));
@@ -227,6 +229,7 @@ class WebSocketController extends Component{
         let body = {
             playerId: this.props.myPlayerId
         }
+        this.setState({disconnected: false});
         this.props.backToStart();
         this.sendPostRequest("/disconnect?gameCode=" + this.props.gameCode, JSON.stringify(body));
     }

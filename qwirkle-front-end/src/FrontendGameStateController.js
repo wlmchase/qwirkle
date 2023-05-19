@@ -12,7 +12,7 @@ import WebSocketController from './components/WebSocketSetup';
 // want to be able to undo tile placements 
 const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
 const LH_URL = 'http://localhost:8080';
-const ACTIVE_URL = AWS_URL;
+const ACTIVE_URL = LH_URL;
 
 class FrontendGameStateController extends Component{
     state = {
@@ -25,7 +25,8 @@ class FrontendGameStateController extends Component{
         myPlayerNum: 1,
         currScreen: "start",
         gameCode: "",
-        squaresWithTiles: []
+        squaresWithTiles: [],
+        disconnected: false
     };
 
 

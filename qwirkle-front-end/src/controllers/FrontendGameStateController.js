@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import './App.css'
-import {Client} from '@stomp/stompjs';
+import '../App.css'
 import { v4 as uuid } from 'uuid';
-import StartView from './views/StartView';
-import RuleView from './views/RuleView';
-import GameSelectView from './views/GameSelectView';
-import JoinByCodeView from './views/JoinByCodeView';
-import WaitRoomView from './views/WaitRoomView';
-import WebSocketController from './components/WebSocketSetup';
+import StartView from '../views/StartView';
+import RuleView from '../views/RuleView';
+import GameSelectView from '../views/GameSelectView';
+import JoinByCodeView from '../views/JoinByCodeView';
+import WebSocketController from './WebSocketController';
 
-// want to be able to undo tile placements 
+// should be in .env
 const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
 const LH_URL = 'http://localhost:8080';
 const ACTIVE_URL = LH_URL;

@@ -4,8 +4,10 @@ import GameView from '../views/GameView';
 import { Alert } from '@mui/material';
 import WaitRoomView from '../views/WaitRoomView';
 import WaitView from '../views/WaitView';
+import WinView from '../views/WinView'
 import DisconnectPrompt from '../views/DisconnectPrompt';
 
+// should be in .env
 const LOCAL_WS = 'ws://localhost:8080/ws-message'
 const AWS_WS = 'ws://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/ws-message';
 const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
@@ -141,15 +143,6 @@ class WebSocketController extends Component{
             }
         }, () => {
             console.log("myPlayer: " + JSON.stringify(this.state.myPlayer));
-            // ********* trying to do this this.state.myPlayer.originalHand = this.state.myPlayer.hand;
-            // this.setState( (prevState) => {
-            //     return{
-            //         myPlayer: {
-            //             ...prevState.myPlayer,
-            //             orignalHand: prevState.myPlayer.hand
-            //         }
-            //     }
-            // })
         });
     }
 
@@ -166,9 +159,6 @@ class WebSocketController extends Component{
             }
         })
 
-        // let row_position = (position - position%15)/15;
-        // let column_position = position%15; 
-
         this.setState({tilesPlaced: true}, () => {
             let body = {
                 playerId: this.props.myPlayerId,
@@ -181,8 +171,6 @@ class WebSocketController extends Component{
             this.sendPostRequest("/playTile?gameCode=" + this.props.gameCode, JSON.stringify(body))
         });
 
-
-        //this.state.myPlayer.hand = this.state.myPlayer.hand.filter(thisTile => (thisTile.shape !== tile.shape) || (thisTile.color !== tile.color)) // remove tile from player's hand to create snap to grid effect
     }
 
     toggleDiscardState = () => {
@@ -238,7 +226,6 @@ class WebSocketController extends Component{
         this.setState({showDisconnectPrompt: false});
     }
 
-    // WebSocket setup 
     componentDidMount(){
         let onConnected = () => {
             console.log("connected");
@@ -285,6 +272,10 @@ class WebSocketController extends Component{
         console.log("My gameCode: " + this.props.gameCode);
 
         return (
+            this.state.winner?
+            <div className='App'>
+                <WinView backToStart={() => {this.props.backToStart()}}/>
+            </div>:
             this.state.showDisconnectPrompt?
             <div className='App'>
                 <DisconnectPrompt backToGame={this.backToGame} disconnect={this.disconnect}/>
@@ -295,7 +286,7 @@ class WebSocketController extends Component{
             </div>:
             this.state.waitRoom && this.props.quickJoin?
             <div className='App'>
-                <WaitView/>
+                <WaitView goBack={() => {this.props.goBack()}}/>
             </div>:
             this.state.waitRoom?
             <div className='App'>

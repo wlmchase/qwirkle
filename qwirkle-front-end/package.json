@@ -1,6 +1,7 @@
 {
   "name": "qwirkle-front-end",
   "version": "0.1.0",
+  "author": "Nathan Kimball",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",

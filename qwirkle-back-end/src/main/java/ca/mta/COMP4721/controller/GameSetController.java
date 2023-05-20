@@ -23,6 +23,7 @@ public class GameSetController {
 
 
     HashMap<String, Game> gameSet = new HashMap<>();
+    HashMap<String, Game> quickGamesInProgress = new HashMap<>();
 
     ArrayDeque<String> quickGame = new ArrayDeque<>();
 
@@ -105,7 +106,12 @@ public class GameSetController {
         System.out.println("POP QUEUE");
         String gameId = popGame();
         joinGame(gameId, playerId);
+        addToQuickGamesInProgress(gameId);
         return gameId;
+    }
+
+    private void addToQuickGamesInProgress(String gameId) {
+        quickGamesInProgress.put(gameId, getGame(gameId));
     }
 
     public String joinGame(String gameCode, String playerId) throws Exception {
@@ -132,6 +138,12 @@ public class GameSetController {
 
     public void disconnect(String gameCode, String playerId) {
         getGame(gameCode).disconnect(playerId);
+//        if (getQuickGamesInProgress().containsKey(gameCode)) {
+//            String lastPlayerId = getGame(gameCode).getGameStateController().getGameStateModel().getPlayerList().get(0).getStringId();
+//            getGame(gameCode).disconnect(lastPlayerId);
+//            //disconnectWaitingRoom(gameCode, lastPlayerId);
+//        }
+        updateIfQuickGame(gameCode);
     }
 
     public void playTile(String gameCode, PlayTileInfo playTileInfo) {
@@ -156,10 +168,15 @@ public class GameSetController {
 
     public void disconnectWaitingRoom(String gameCode, String playerId) {
         getGame(gameCode).getGameStateController().disconnectFromLobby(playerId);
-        if (getGame(gameCode).getGameStateController().getWaitingRoom().getWaitingPlayerList().size() == 0) {
-            delete(gameCode);
+        if (quickGamesInProgress.containsKey(gameCode)) {
+            if (needsReset(gameCode)) {
+                String lastPlayerId = getGame(gameCode).getGameStateController().getGameStateModel().getPlayerList().get(0).getStringId();
+                getGame(gameCode).disconnect(lastPlayerId);
+                //getGame(gameCode).getGameStateController().disconnectFromLobby(lastPlayerId);
+            }
         }
     }
+
 
     public void delete(String gameCode) {
         gameSet.remove(gameCode);
@@ -170,6 +187,19 @@ public class GameSetController {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void checkEmptyWaitingRoom(String gameCode) {
+        if (getGame(gameCode).getGameStateController().getWaitingRoom().getWaitingPlayerList().size() == 0) {
+            System.out.println("WAITING ROOM EMPTY");
+            delete(gameCode);
+        }
+    }
+
+    public void updateIfQuickGame(String gameCode) {
+        if (quickGamesInProgress.containsKey(gameCode)) {
+            getGame(gameCode).getGameStateController().getGameStateModel().setDisconnect(true);
         }
     }
 

@@ -29,6 +29,7 @@ public class GameStateModel {
     private ArrayList<Tile> tempHand;
 
     private boolean gameStarted = false;
+    private boolean disconnect = false;
     private int current_row = -1;
     private int current_col = -1;
     private int score = 0;

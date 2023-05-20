@@ -316,7 +316,7 @@ public class GameStateController implements TurnInterface {
         //TODO
         // delete game if player count < 2
         if (gameStateModel.getPlayerList().size() <= 1) {
-            System.out.println("DELETE GAME");
+            System.out.println("SHOULD DELETE GAME, SET GAME STARTED TO FALSE");
             deleteGame();
         }
     }

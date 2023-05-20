@@ -248,11 +248,12 @@ public class WebSocketGameController {
         }
         try {
             gameSetController.disconnect(gameCode, playerInfo.playerId());
+            broadcastGameInfo(gameCode);
             disconnectWaitRoom(gameCode, playerInfo);
 //            if (gameSetController.needsReset(gameCode)) {
 //                gameSetController.resetGame(gameCode);
 //            }
-            broadcastGameInfo(gameCode);
+
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);
@@ -272,6 +273,7 @@ public class WebSocketGameController {
             if (gameSetController.getGame(gameCode) != null) {
                 broadcastWaitingRoom(gameCode);
             }
+            gameSetController.checkEmptyWaitingRoom(gameCode);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);

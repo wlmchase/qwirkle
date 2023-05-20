@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 
-class WaitView extends Component {
-    state={}
-
+class WinView extends Component {
     render() {
-        let winner;
+
+        let winElement;
+
         if (this.props.state.winner.playerId === this.props.state.myPlayerId){
-            winner = <h1 className='winText'>You Win!</h1>
+            winElement = <h1 className='winText'>You Win!</h1>
         }
         else{
-            winner = <h1 className='winText'>Player {this.props.state.winner.playerNum + 1} wins!</h1>
+            winElement = <h1 className='winText'>Player {this.props.state.winner.playerNum + 1} wins!</h1>
         }
 
         return (
             <div>
-                {winner}
-                <button className='endGameButton'>End Game</button>
+                {winElement}
+                <button className='endGameButton' onClick={() => this.props.backToStart()}>End Game</button>
             </div>
         );
     }
 }
-export default WaitView
+export default WinView

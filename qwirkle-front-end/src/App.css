@@ -67,7 +67,8 @@
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
 }
 
-.startButton
+.startButton,
+.endGameButton
 {
   margin: auto;
   text-align: center;
@@ -92,6 +93,9 @@
 .startButton:hover,
 .startButton:focus,
 .startButton:active,
+.endGameButton:hover,
+.endGameButton:focus,
+.endGameButton:active,
 .createLobbyButton:hover,
 .joinByCodeButton:hover,
 .quickJoinButton:hover,
@@ -734,4 +738,15 @@
   font-size: 30px;
   color: rgb(0, 0, 0);
   font-family: 'Titillium Web', sans-serif;
+}
+
+.winText{
+  text-align: center;
+  color: rgb(255, 157, 0);
+}
+
+.endGameButton{
+  margin-top: 20px;
+  width: 175px;
+  height: 55px;
 }

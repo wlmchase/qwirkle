@@ -11,7 +11,9 @@ const JoinByCodeView = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.joinByCode(code);
+        if (code !== ''){
+            props.joinByCode(code);
+        }
     }
 
     return(  

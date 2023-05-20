@@ -274,7 +274,7 @@ class WebSocketController extends Component{
         return (
             this.state.winner?
             <div className='App'>
-                <WinView backToStart={() => {this.props.backToStart()}}/>
+                <WinView state={this.state} backToStart={() => {this.props.backToStart()}} />
             </div>:
             this.state.showDisconnectPrompt?
             <div className='App'>

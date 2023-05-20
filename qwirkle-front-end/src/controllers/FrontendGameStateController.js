@@ -210,6 +210,7 @@ class FrontendGameStateController extends Component{
             showWaitRoom: false,
             showGameSelect: false,
             showJoinByCodeScreen: false,
+            quickJoin: false
         })
     }
 
@@ -226,6 +227,9 @@ class FrontendGameStateController extends Component{
             }
             this.sendPostRequest("/disconnectWaitRoom?gameCode=" + this.state.gameCode, JSON.stringify(body));
             this.showGameSelect();
+            if (this.state.quickJoin){
+                this.setState({quickJoin: false})
+            }
         }
     }
     

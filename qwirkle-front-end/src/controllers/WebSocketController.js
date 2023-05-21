@@ -7,13 +7,8 @@ import WaitView from '../views/WaitView';
 import WinView from '../views/WinView'
 import DisconnectPrompt from '../views/DisconnectPrompt';
 
-// should be in .env
-const LOCAL_WS = 'ws://localhost:8080/ws-message'
-const AWS_WS = 'ws://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com/ws-message';
-const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
-const LH_URL = 'http://localhost:8080';
-const ACTIVE_URL = LH_URL;
-const ACTIVE_WS = LOCAL_WS;
+const ACTIVE_URL = process.env.REACT_APP_AWS_BE_URL;
+const ACTIVE_WS = process.env.REACT_APP_AWS_BE_WS;
 
 class WebSocketController extends Component{
 

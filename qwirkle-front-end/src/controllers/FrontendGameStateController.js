@@ -7,10 +7,8 @@ import GameSelectView from '../views/GameSelectView';
 import JoinByCodeView from '../views/JoinByCodeView';
 import WebSocketController from './WebSocketController';
 
-// should be in .env
-const AWS_URL = 'http://qwirkle-be-env.eba-vqzzpbxm.us-east-1.elasticbeanstalk.com';
-const LH_URL = 'http://localhost:8080';
-const ACTIVE_URL = LH_URL;
+
+const ACTIVE_URL = process.env.REACT_APP_AWS_BE_URL;
 
 class FrontendGameStateController extends Component{
     state = {
